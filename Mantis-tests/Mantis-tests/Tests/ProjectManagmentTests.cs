@@ -15,7 +15,6 @@ namespace Mantis_tests.Tests
             {
                 Decriptoin = "aSome description4"
             };
-            
 
             app.ProjectManagment.CreateProject(project);
             List<ProjectData> newProjects = app.ProjectManagment.GetProjectsList();
