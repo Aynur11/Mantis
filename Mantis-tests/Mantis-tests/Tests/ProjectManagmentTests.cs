@@ -8,17 +8,19 @@ namespace Mantis_tests.Tests
     class ProjectManagmentTests : AuthTestBase
     {
         [Test]
-        public void ProjectCreationTest()
+        public void ProjectCreationWSTest()
         {
-            List<ProjectData> oldProjects = app.ProjectManagment.GetProjectsList();
-            ProjectData project = new ProjectData("511ryNewProject4")
+            List<ProjectData> oldProjects = app.API.GetPrjectsListWS();
+
+
+            ProjectData project = new ProjectData("jNewProject4")
             {
                 Decriptoin = "aSome description4"
             };
 
             app.ProjectManagment.CreateProject(project);
-            List<ProjectData> newProjects = app.ProjectManagment.GetProjectsList();
-            
+            List<ProjectData> newProjects = app.API.GetPrjectsListWS();
+
             oldProjects.Add(project);
 
             oldProjects.Sort();
@@ -28,20 +30,24 @@ namespace Mantis_tests.Tests
         }
 
         [Test]
-        public void ProjectRemovalTests()
+        public void ProjectRemovalWSTest()
         {
-            List<ProjectData> oldProjects = app.ProjectManagment.GetProjectsList();
-            ProjectData toBeRemoved = oldProjects[2];
+            List<ProjectData> oldProjects = app.API.GetPrjectsListWS();
+            //ProjectData toBeRemoved = oldProjects[2];
+            ProjectData toBeRemoved = new ProjectData("jNewProject4")
+            {
+                Decriptoin = "newdescr2"
+            };
+
             app.ProjectManagment.RemoveProject(toBeRemoved);
-            List<ProjectData> newProjects = app.ProjectManagment.GetProjectsList();
+            List<ProjectData> newProjects = app.API.GetPrjectsListWS();
 
-            oldProjects.RemoveAt(2);
-
+            //oldProjects.RemoveAt(2);
+            oldProjects.RemoveAll(p => p.Name == toBeRemoved.Name);
             oldProjects.Sort();
             newProjects.Sort();
             Assert.AreEqual(oldProjects, newProjects);
             Assert.AreEqual(oldProjects.Count, newProjects.Count);
-
         }
     }
 }

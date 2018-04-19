@@ -29,7 +29,13 @@ namespace Mantis_tests
         public NavigationHelper Navigator { get; private set; }
         public ManagmentMenuHelper MenuManagment { get; private set; }
         public ProjectManagmentHelper ProjectManagment { get; private set; }
+        public APIHelper API { get; set; }
 
+        public static AccountData Account = new AccountData()
+        {
+            Name = "administrator",
+            Password = "111111"
+        };
         private ApplicationManager()
         {
             FirefoxOptions options = new FirefoxOptions();
@@ -43,8 +49,9 @@ namespace Mantis_tests
             MenuManagment = new ManagmentMenuHelper(this);
             ProjectManagment = new ProjectManagmentHelper(this);
             Navigator = new NavigationHelper(this);
+            API = new APIHelper(this);
         }
-        
+
         ~ApplicationManager()
         {
             try

@@ -51,7 +51,7 @@ namespace Mantis_tests
 
         public IWebElement WaitForElement(By by)
         {
-            WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(1));
+            WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(2));
             return wait.Until(d => d.FindElement(by));
         }
     }
