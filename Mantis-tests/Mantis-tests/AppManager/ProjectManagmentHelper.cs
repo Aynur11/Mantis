@@ -45,39 +45,57 @@ namespace Mantis_tests
             manager.MenuManagment.GoToManagmentPage();
             GoToProjectManagmentPage();
             WaitForElement(By.TagName("tbody"));
-            
-            if (!Remove(toBeRemoved))
-            {
-                Mantis.ProjectData project = new Mantis.ProjectData()
-                {
-                    name = toBeRemoved.Name,
-                    description = toBeRemoved.Decriptoin
-                };
-                Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
-                client.mc_project_add(ApplicationManager.Account.Name, ApplicationManager.Account.Password, project);
-            }
-            Remove(toBeRemoved);
-        }
 
-        private bool Remove(ProjectData toBeRemoved)
-        {
-            driver.Navigate().Refresh();
             ICollection<IWebElement> elements = driver.FindElement(By.TagName("tbody")).FindElements(By.TagName("tr"));
-
-            bool removed = false;
+            
             foreach (IWebElement element in elements)
             {
                 if (element.FindElements(By.TagName("td"))[0].Text == toBeRemoved.Name)
                 {
                     element.FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).Click();
                     SubmitProjectRemove();
-                    removed = true;
-                    return removed;
+                    return;
                 }
             }
-            return removed;
         }
 
+        //private bool Remove(ProjectData toBeRemoved)
+        //{
+        //    driver.Navigate().Refresh();
+        //    ICollection<IWebElement> elements = driver.FindElement(By.TagName("tbody")).FindElements(By.TagName("tr"));
+
+        //    bool removed = false;
+        //    foreach (IWebElement element in elements)
+        //    {
+        //        if (element.FindElements(By.TagName("td"))[0].Text == toBeRemoved.Name)
+        //        {
+        //            element.FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).Click();
+        //            SubmitProjectRemove();
+        //            removed = true;
+        //            return removed;
+        //        }
+        //    }
+        //    return removed;
+        //}
+
+        ///////
+
+        public void CreateProjectIfNoExists(ProjectData project)
+        {
+            List<ProjectData> oldProjects = manager.API.GetPrjectsListWS();
+            if (!oldProjects.Exists(p => p.Name == project.Name))
+            {
+                Mantis.ProjectData mProject = new Mantis.ProjectData()
+                {
+                    name = project.Name,
+                    description = project.Decriptoin
+                };
+                Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+                client.mc_project_add(ApplicationManager.Account.Name, ApplicationManager.Account.Password, mProject);
+            }
+        }
+
+        ///////
         private void SubmitProjectRemove()
         {
             Actions actions = new Actions(driver);

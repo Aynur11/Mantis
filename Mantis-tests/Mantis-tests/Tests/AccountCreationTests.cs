@@ -11,16 +11,16 @@ namespace Mantis_tests
     [TestFixture]
     class AccountCreationTests : TestBase
     {
-        [OneTimeSetUp]
-        public void SetUpConfig()
-        {
-            app.Ftp.BackupFile("/config_inc.php");
-            using (Stream localfile = File.Open("Mantis-tests/config_inc.php", FileMode.Open))
-            {
-                app.Ftp.Upload("/config_inc.php", localfile);
-            }
-        }
-        
+        //[OneTimeSetUp]
+        //public void SetUpConfig()
+        //{
+        //    app.Ftp.BackupFile("/config_inc.php");
+        //    using (Stream localfile = File.Open("Mantis-tests/config_inc.php", FileMode.Open))
+        //    {
+        //        app.Ftp.Upload("/config_inc.php", localfile);
+        //    }
+        //}
+
         [Test]
         public void TestAccountRegistration()
         {
@@ -33,11 +33,11 @@ namespace Mantis_tests
             app.Registration.Register(account);
         }
 
-        [OneTimeTearDown]
-        public void RestoreConfig()
-        {
-            app.Ftp.RestoreBackupFile("/config_inc.php");
+        //[OneTimeTearDown]
+        //public void RestoreConfig()
+        //{
+        //    app.Ftp.RestoreBackupFile("/config_inc.php");
 
-        }
+        //}
     }
 }

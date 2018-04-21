@@ -15,11 +15,13 @@ namespace Mantis_tests
         public void Login(AccountData account)
         {
             //manager.Navigator.GoToLoginPage();
-
-            Type((By.XPath("//input[@id='username']")), account.Name);
-            SubmitInput();
-            Type((By.XPath("//input[@id='password']")), account.Password);
-            SubmitInput();
+            if (!IsElementPresent(By.XPath("//input[@placeholder='задача №']")))
+            {
+                Type((By.XPath("//input[@id='username']")), account.Name);
+                SubmitInput();
+                Type((By.XPath("//input[@id='password']")), account.Password);
+                SubmitInput();
+            }
         }
 
         public void SubmitInput()

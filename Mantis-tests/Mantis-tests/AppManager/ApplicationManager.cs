@@ -44,7 +44,7 @@ namespace Mantis_tests
             driver = new FirefoxDriver(options);
             baseURL = "http://localhost";
             Registration = new RegistrationHelper(this);
-            Ftp = new FtpHelper(this);
+            //Ftp = new FtpHelper(this);
             Auth = new LoginHelper(this);
             MenuManagment = new ManagmentMenuHelper(this);
             ProjectManagment = new ProjectManagmentHelper(this);

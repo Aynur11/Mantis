@@ -11,6 +11,5 @@ namespace Mantis_tests
     {
         public NavigationHelper(ApplicationManager manager) : base(manager) { }
         
-        
     }
 }
